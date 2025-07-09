@@ -2,6 +2,7 @@ import {Server} from "http"
 import mongoose from "mongoose";
 import app from "./app";
 import { error } from "console";
+import { envVabs } from "./app/config/env";
 
 
 let server : Server;
@@ -10,10 +11,10 @@ let server : Server;
 
 const startServer = async ()=>{
   try {
-    await mongoose.connect("mongodb+srv://sarajit:sarajitTour@tour.xblw4ts.mongodb.net/tour-management?retryWrites=true&w=majority&appName=tour")
+    await mongoose.connect(envVabs.DB_URL)
   console.log("Connected to DB")
  server = app.listen(5000,()=>{
-    console.log(`Server is ranning http://localhost:${5000}`)
+    console.log(`Server is ranning http://localhost:${envVabs.PORT}`)
   })
   } catch (error) {
     console.log(error)
