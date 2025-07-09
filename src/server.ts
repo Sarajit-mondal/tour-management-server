@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-console */
 import {Server} from "http"
 import mongoose from "mongoose";
 import app from "./app";
@@ -16,14 +18,14 @@ const startServer = async ()=>{
  server = app.listen(5000,()=>{
     console.log(`Server is ranning http://localhost:${envVabs.PORT}`)
   })
-  } catch (error) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error : any) {
     console.log(error)
   }
 }
 
 startServer()
 
-let count ;
 
 process.on("SIGTERM",(error)=>{
 console.log("Sigterm detected.... server shutting down...")
