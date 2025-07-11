@@ -3,7 +3,8 @@ import httpStatus from "http-status-codes";
 
 
 
-const notFound = (res:Response,req:Request)=>{
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const notFound = (req:Request,res:Response)=>{
     res.status(httpStatus.NOT_FOUND).json({
         success:false,
         message: "Route Not Found"

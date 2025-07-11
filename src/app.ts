@@ -2,6 +2,8 @@ import express, { Request, Response } from "express"
 import cors from "cors"
 import { router } from "./app/routes"
 import notFound from "./app/middlewares/notFound"
+import { globalErrorHandler } from "./app/middlewares/globalErrorHandler"
+
 
 
 
@@ -18,6 +20,9 @@ app.get("/",(req:Request,res:Response)=>{
     message: "Welcom to tour management System backand"
   })
 })
+
+
+app.use(globalErrorHandler)
 
 app.use(notFound)
 
