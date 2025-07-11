@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express"
 import cors from "cors"
 import { router } from "./app/routes"
+import notFound from "./app/middlewares/notFound"
 
 
 
@@ -18,5 +19,6 @@ app.get("/",(req:Request,res:Response)=>{
   })
 })
 
+app.use(notFound)
 
 export default app;

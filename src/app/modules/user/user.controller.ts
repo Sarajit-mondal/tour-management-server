@@ -3,7 +3,7 @@ import { UserService } from "./user.service";
 
 
 
-
+// createUser 
 const createUser = async(req:Request,res:Response)=>{
 
     try {
@@ -15,7 +15,18 @@ const createUser = async(req:Request,res:Response)=>{
 }
 
 
+// getAll Users 
+const getAllusers = async(req:Request,res:Response)=>{
+   try {
+    const users = await UserService.getAllUsers()
+    res.send(users)
+   } catch (error) {
+    
+   }
+}
+
 
 export const UserControllers = {
-    createUser
+    createUser,
+    getAllusers
 }
