@@ -29,8 +29,7 @@ const jwtPayload = {
 }
 
 const jwtToken = generateToken(jwtPayload,envVabs.JWT_ACCESS_SECRET,envVabs.JWT_ACCESS_EXPIRES)
-// eslint-disable-next-line no-console
-console.log(jwtToken)
+
 return{
    jwtToken
 }

@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import app from "./app";
 import { error } from "console";
 import { envVabs } from "./app/config/env";
+import { superAdmin } from "./app/utils/superAdmin";
 
 
 let server : Server;
@@ -24,7 +25,10 @@ const startServer = async ()=>{
   }
 }
 
-startServer()
+(async () => {
+    await startServer()
+     await superAdmin()
+})()
 
 
 process.on("SIGTERM",(error)=>{
