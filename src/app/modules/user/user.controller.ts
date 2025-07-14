@@ -8,6 +8,7 @@ import httpStatus from "http-status-codes"
 // createUser 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const createUser = catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
+
     const user = await UserService.createUser(req.body)
 
    sendResponse(res,{
