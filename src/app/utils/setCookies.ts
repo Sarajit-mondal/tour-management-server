@@ -1,13 +1,13 @@
 import { Response } from "express"
 
 
-export interface AuthTokens {
+export interface IAuthTokens {
  accessToken?:string,
  refreshToken?:string,
 }
 
 
-export const setAuthCooke =(res:Response,tokenInfo:AuthTokens)=>{
+export const setAuthCooke =(res:Response,tokenInfo:IAuthTokens)=>{
 
     if(tokenInfo.accessToken){
         res.cookie("accessToken",tokenInfo.accessToken,{
