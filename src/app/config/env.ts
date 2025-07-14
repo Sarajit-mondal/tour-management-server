@@ -23,6 +23,8 @@ const loadEnvVariables = ()=>{
         BCRYPT_SALT_ROUND : process.env.BCRYPT_SALT_ROUND as string,
         JWT_ACCESS_EXPIRES : process.env.JWT_ACCESS_EXPIRES as string,
         JWT_ACCESS_SECRET : process.env.JWT_ACCESS_SECRET  as string,
+        JWT_REFRESH_SECRET : process.env.JWT_REFRESH_SECRET as string,
+        JWT_REFRESH_EXPIRES : process.env.JWT_REFRESH_EXPIRES  as string,
         SUPPER_ADMIN_EMAIL : process.env.SUPPER_ADMIN_EMAIL as string,
         SUPPER_ADMIN_PASSWORD : process.env.SUPPER_ADMIN_PASSWORD as  string
         

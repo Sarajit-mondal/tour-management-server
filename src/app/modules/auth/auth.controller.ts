@@ -4,9 +4,12 @@ import { AuthService } from "./auth.service";
 import { sendResponse } from "../../utils/sendResponse";
 
 import httpStatus from "http-status-codes"
+import { setAuthCooke } from "../../utils/setCookies";
 
 const credentialsLogin = async(req:Request,res:Response,next:NextFunction)=>{
  const loginInfo = await AuthService.credentialsLogin(req.body)
+
+ setAuthCooke(res,loginInfo)
 
     sendResponse(res, {
         success: true,

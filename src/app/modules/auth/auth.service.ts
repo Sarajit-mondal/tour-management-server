@@ -5,6 +5,7 @@ import httpStatusCode from "http-status-codes"
 import bcrypt from "bcryptjs"
 import { generateToken } from "../../utils/jwt";
 import { envVabs } from "../../config/env";
+import { createUserTokens } from "../../utils/userToken";
 
 const credentialsLogin = async(payload:Partial<IUser>)=>{
 const {email,password} = payload;
@@ -21,17 +22,17 @@ if(!isPasswordMatched){
     throw new AppError(httpStatusCode.BAD_REQUEST,"Incorrect Password")
 }
 
-// jwt payload
-const jwtPayload = {
-    userId : isUserExist?._id,
-    email : isUserExist?.email,
-    role : isUserExist?.role
-}
 
-const jwtToken = generateToken(jwtPayload,envVabs.JWT_ACCESS_SECRET,envVabs.JWT_ACCESS_EXPIRES)
 
+const jwtToken = createUserTokens(isUserExist)
+const accessToken = jwtToken.accessToken
+const refreshToken = jwtToken.refreshToken
+const {password : pass ,...rest} = isUserExist.toObject()
 return{
-   jwtToken
+  
+ accessToken,
+ refreshToken,
+ user : rest
 }
 }
 
