@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import AppError from "../../errorHelpers/AppEror";
 import { IUser } from "../user/user.interface";
 import { User } from "../user/user.modle";

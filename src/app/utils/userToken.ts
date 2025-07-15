@@ -20,7 +20,6 @@ const jwtPayload = {
 const accessToken = generateToken(jwtPayload,envVabs.JWT_ACCESS_SECRET,envVabs.JWT_ACCESS_EXPIRES)
 const refreshToken = generateToken(jwtPayload,envVabs.JWT_REFRESH_SECRET,envVabs.JWT_REFRESH_EXPIRES)
 
-
 return {
     accessToken,
     refreshToken
