@@ -4,6 +4,8 @@ import { User } from "../user/user.modle";
 import httpStatusCode from "http-status-codes"
 import bcrypt from "bcryptjs"
 import { createNewAccessTokenWithRefreshToken, createUserTokens } from "../../utils/userToken";
+import { JwtPayload } from "jsonwebtoken";
+import { envVabs } from "../../config/env";
 
 const credentialsLogin = async(payload:Partial<IUser>)=>{
 const {email,password} = payload;
@@ -46,8 +48,23 @@ const getNewAccessToken = async (refreshToken: string) => {
 }
 
 
+///reset password
+const resetPassword =async(oldPassword:string,newPassword:string,dicodedToken:JwtPayload)=>{
+const user = await User.findOne({email : dicodedToken.email})
+
+const isOldPassword = await bcrypt.compare(oldPassword,user!.password as string)
+if(!isOldPassword){
+     throw new AppError(httpStatusCode.UNAUTHORIZED,"Old Password does not match")
+}
+user!.password = await bcrypt.hash(newPassword,Number(envVabs.BCRYPT_SALT_ROUND))
+
+user!.save()
+
+}
+
 
 export const AuthService = {
     credentialsLogin,
-    getNewAccessToken
+    getNewAccessToken,
+    resetPassword
 }
