@@ -15,3 +15,12 @@ JWT_ACCESS_SECRET = MyNameIsSarajitMandal
 JWT_ACCESS_EXPIRES = 1d
 JWT_REFRESH_SECRET = MyNameIsSarajit
 JWT_REFRESH_EXPIRES = 30d
+
+
+# Google auth 
+GOOGLE_CLIENT_ID = 278730067077-ap6ppfncdr2ui7213a
+GOOGLE_CLIENT_SECRET = GOCSPX-
+EXPRESS_SESSION_SECRET = express-session
+GOOGLE_CALLBACK_URL = http://loccalhost:5000/api/v1/auth/google/callback
+
+FRONTEND_URL = http://loccalhost:5173
