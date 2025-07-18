@@ -10,20 +10,37 @@ import { catchAsync } from "../../utils/catchAsync";
 import { JwtPayload } from "jsonwebtoken";
 import { createUserTokens } from "../../utils/userToken";
 import { envVabs } from "../../config/env";
+import passport from "passport";
 
 const credentialsLogin = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const loginInfo = await AuthService.credentialsLogin(req.body)
 
-   
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    passport.authenticate('local',async(err:any,user:any,info:any)=>{
 
-     setAuthCooke(res, loginInfo)
+        if(err){
+            return next(new AppError(401,err))
+        }
 
-    sendResponse(res, {
+        if(!user){
+            return next(new AppError(401,info.message))
+        }
+
+        const userToken = createUserTokens(user)
+        setAuthCooke(res,userToken)
+
+        const {password : pass,...rest} = user.toObject()
+        sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
         message: "User Logged In Successfully",
-        data: loginInfo,
+        data: {
+            accessToken: userToken.accessToken,
+            resfresshToken: userToken.refreshToken,
+            user:rest
+        }
     })
+    })(req,res,next)
+
 })
 const getNewAccessToken = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const refreshToken = req.cookies.refreshToken;
