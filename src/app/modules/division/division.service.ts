@@ -1,7 +1,7 @@
 import AppError from "../../errorHelpers/AppEror";
 import { IDevision } from "./division.interface";
 import { Division } from "./division.model";
-
+import { StatusCodes } from "http-status-codes";
 
 // createDivision
 const createDivision =async(payload : IDevision)=>{
@@ -33,8 +33,48 @@ const updateDivision =async(id:string,payload:Partial<IDevision>)=>{
  return updateDivision
 }
 
+// get all division
+const getAllDivision =async()=>{
+ const data  = await Division.find({})
+ 
+ const totalDivisions = await Division.countDocuments()
+
+ return {
+   data,
+   meta:{
+      total : totalDivisions
+   }
+ }
+
+}
+// get One division
+const getOneDivision =async(id:string)=>{
+ const data  = await Division.findById(id)
+
+ if(!data){
+   throw new AppError(StatusCodes.NOT_FOUND,"Division Not found")
+ }
+
+ return data
+
+}
+// get One division
+const deleteOneDivision =async(id:string)=>{
+ const data  = await Division.findById(id)
+
+ if(!data){
+   throw new AppError(StatusCodes.NOT_FOUND,"Division Not found")
+ }
+ await Division.deleteOne({_id: id})
+
+ return null
+
+}
 
 export const DivistionService ={
     createDivision,
-    updateDivision
+    updateDivision,
+    getAllDivision,
+    getOneDivision,
+    deleteOneDivision
 }
