@@ -22,7 +22,8 @@ const createUser = catchAsync(async(req:Request,res:Response,next:NextFunction)=
 // updateUser
 const updateUser = catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
 
-    const user = await UserService.updateUser(req.params.id,req.body,req.user)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const user = await UserService.updateUser(req.params.id,req.body,req.user!)
 
    sendResponse(res,{
     statusCode: httpStatus.CREATED,
