@@ -1,4 +1,5 @@
 import { QueryBuilder } from "../../utils/QueryBuilder"
+import { tourSearchableFields } from "../../utils/tour.constant";
 import { ITour, ITourType } from "./tour.interface"
 import { Tour, TourType } from "./tour.modle"
 
@@ -29,11 +30,33 @@ const createTour = async (payload: ITour) => {
 const getAllTours = async(query:Record<string,string>)=>{
 const queryBuilder = new QueryBuilder(Tour.find(),query)
 
-const tours =queryBuilder
-.filter()
-.search()
-}
+const getAllTours = async (query: Record<string, string>) => {
 
+
+    const queryBuilder = new QueryBuilder(Tour.find(), query)
+
+    const tours = await queryBuilder
+        .search(tourSearchableFields)
+        .filter()
+        .sort()
+        .fields()
+        .paginate()
+
+    // const meta = await queryBuilder.getMeta()
+
+    const [data, meta] = await Promise.all([
+        tours.build(),
+        queryBuilder.getMeta()
+    ])
+
+
+    return {
+        data,
+        meta
+    }
+};
+
+}
 
 const updateTour =async(id:string,payload:Partial<ITour>)=>{
   const isTourExist =await Tour.findById(id)
